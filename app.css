@@ -1,4 +1,5 @@
 html, body {
+    background-color: #fff;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -23,12 +24,20 @@ html, body {
 
 #board {
     height: 100%;
+    opacity: 0;
     width: 100%;
+
+    -webkit-transition: opacity 0.3s 0.1s;
+            transition: opacity 0.3s 0.1s;
+}
+
+#board.visible {
+    opacity: 1;
 }
 
 #board > div {
     height: 6.25%;
-    position: absolute;
+    position: fixed;
     width: 6.25%;
 
     -webkit-touch-callout: none;
@@ -37,24 +46,4 @@ html, body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-#board > .color0 {
-    background-color: #fff;
-}
-
-#board > .color1 {
-    background-color: #09c;
-}
-
-#board > .color2 {
-    background-color: #90c;
-}
-
-#board > .color3 {
-    background-color: #c90;
-}
-
-#board > .color4 {
-    background-color: #09f;
 }

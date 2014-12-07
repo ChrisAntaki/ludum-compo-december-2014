@@ -19,9 +19,7 @@ touches.set = function(e, value) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (debug) {
-        lastTouch = Date.now();
-    }
+    lastTouch = Date.now();
 
     var x = e.pageX;
     var y = e.pageY;
@@ -151,14 +149,41 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     el.addEventListener('touchstart', onTouchStart, false);
 
+    var onHashChange = function(e) {
+        try {
+            touches.storage = JSON.parse(atob(location.hash.substring(1)));
+            sessionStorage.savedHash = location.hash;
+        } catch(e) {
+            sessionStorage.savedHash = '';
+            location.hash = '';
+            touches.allocate(arraySize, arraySize);
+        }
+    };
+
+    window.addEventListener('hashchange', onHashChange, false);
+
     pixels.element = el;
     pixels.allocate(arraySize, arraySize);
+    setTimeout(function() {
+        el.className = 'visible';
+    });
 
-    if (debug && location.hash) {
-        touches.storage = JSON.parse(atob(location.hash.substring(1)));
-    } else {
+    var loaded = false;
+    if (location.hash && location.hash !== sessionStorage.savedHash) {
+        try {
+            touches.storage = JSON.parse(atob(location.hash.substring(1)));
+            sessionStorage.savedHash = location.hash;
+            loaded = true;
+        } catch(e) {
+            // ...
+        }
+    }
+    if (!loaded) {
+        sessionStorage.savedHash = '';
+        location.hash = '';
         touches.allocate(arraySize, arraySize);
     }
+
 
     var frames = 0;
     var then = Date.now();
@@ -173,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         then = Date.now();
         pixels.render();
 
-        if (debug && lastTouch && Date.now() > lastTouch + 1000) {
+        if (lastTouch && Date.now() > lastTouch + 1000) {
             location.hash = btoa(JSON.stringify(touches.storage));
             lastTouch = 0;
         }
