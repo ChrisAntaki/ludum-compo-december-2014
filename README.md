@@ -1,1 +1,1 @@
-http://chrisantaki.github.io/ludum-compo-december-2014/
+Demo: http://chrisantaki.github.io/ludum-compo-december-2014/
