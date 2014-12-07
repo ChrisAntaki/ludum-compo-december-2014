@@ -37,9 +37,9 @@ html, body {
 }
 
 #board > div {
-    height: 6.25%;
+    height: 6.26%;
     position: fixed;
-    width: 6.25%;
+    width: 6.26%;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
