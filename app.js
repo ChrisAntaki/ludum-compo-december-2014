@@ -66,14 +66,6 @@ pixels.randomNumber = function() {
     return Math.floor(Math.random() * 256);
 }
 
-pixels.takeWeightedNumber = function(x, y) {
-    if (touches.storage[x][y]) {
-        return 255;
-    } else {
-        return this.randomNumber();
-    }
-};
-
 pixels.randomRgb = function() {
     return (
         'rgb(' +
@@ -85,13 +77,11 @@ pixels.randomRgb = function() {
 };
 
 pixels.takeWeightedRgb = function(x, y) {
-    return (
-        'rgb(' +
-            this.takeWeightedNumber(x, y) + ', ' +
-            this.takeWeightedNumber(x, y) + ', ' +
-            this.takeWeightedNumber(x, y) +
-        ')'
-    );
+    if (touches.storage[x][y]) {
+        return 'rgba(0, 0, 0, 0)'
+    } else {
+        return this.randomRgb();
+    }
 };
 
 pixels.render = function() {

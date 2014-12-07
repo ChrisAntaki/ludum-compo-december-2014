@@ -1,5 +1,6 @@
 html, body {
-    background-color: #fff;
+    background-color: #fb1;
+    background-image: linear-gradient(#fff, #fb1);
     height: 100%;
     margin: 0;
     padding: 0;
