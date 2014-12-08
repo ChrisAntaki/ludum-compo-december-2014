@@ -1,5 +1,5 @@
 var debug = false;
-// debug = true; // Uncomment to enable debug mode.
+debug = true; // Uncomment to enable debug mode.
 
 var lastTouch = 0;
 var pixels = {};
@@ -62,32 +62,22 @@ pixels.allocate = function(x, y) {
     }
 };
 
-pixels.randomNumber = function() {
-    return Math.floor(Math.random() * 256);
-}
-
-pixels.randomRgb = function() {
-    return (
-        'rgb(' +
-            this.randomNumber() + ', ' +
-            this.randomNumber() + ', ' +
-            this.randomNumber() +
-        ')'
-    );
+pixels.randomHex = function() {
+    return '#' + Math.floor(Math.random() * 16777216).toString(16);
 };
 
-pixels.takeWeightedRgb = function(x, y) {
+pixels.getRandomizedBackground = function(x, y) {
     if (touches.storage[x][y]) {
-        return 'rgba(0, 0, 0, 0)'
+        return 'transparent';
     } else {
-        return this.randomRgb();
+        return this.randomHex();
     }
 };
 
 pixels.render = function() {
     for (var x = 0; x < this.storage.length; x++) {
         for (var y = 0; y < this.storage.length; y++) {
-            this.storage[x][y].style.backgroundColor = this.takeWeightedRgb(x, y);
+            this.storage[x][y].style.backgroundColor = this.getRandomizedBackground(x, y);
         }
     }
 };
