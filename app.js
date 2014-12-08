@@ -1,5 +1,4 @@
 var debug = false;
-debug = true; // Uncomment to enable debug mode.
 
 var lastTouch = 0;
 var pixels = {};
